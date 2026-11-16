@@ -116,6 +116,55 @@ rápidas (unos 5 segundos) y dan siempre el mismo resultado.
 | `.env.team`, `.env.ai`, `.env.solutions` | Qué carpeta usa cada modo de pruebas |
 | `AGENTS.md` | El contrato del agente y las cuatro preguntas de revisión del diff |
 
+## Resultado del laboratorio (entrega del equipo)
+
+| Verificación | Resultado |
+|---|---|
+| `npm test` (código del equipo, `src/client`) | **67/67** (al empezar: 46 fallaban) |
+| `npm run test:ai` (código de la IA corregido, `src/ai`) | **67/67** (al empezar: 25 fallaban = 5 hallazgos) |
+| `npm run build` | Compila sin errores |
+| `python manage.py test exams` (backend Django, extra) | **10/10** |
+
+**Decisiones del equipo**
+
+- **CORS:** solo `http://localhost:5173` (esquema + host + puerto exactos, sin barra final, sin comodín y sin credenciales).
+  En Django: `CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]`.
+- **Lista tras borrar:** se filtra en local **cuando el servidor confirma** (204). No es optimista (si falla, la fila
+  se queda y se explica el error) y no vuelve a pedir la lista completa (una petición en vez de dos, sin parpadeo).
+- **Doble envío:** guarda con `useRef` (se lee y escribe en el mismo evento) más `saving` para desactivar el botón.
+
+**Los cinco hallazgos del cliente «escrito por una IA»** (un commit por arreglo, etiqueta `ai-original` con el estado inicial):
+
+| # | Hallazgo | Archivo | Fallos antes → después |
+|---|---|---|---|
+| 1 | CORS con comodín `"*"` | `src/ai/cors.js:2` | 25 → 20 |
+| 2 | Error tragado (`console.error` + `status "ready"`) | `src/ai/useExams.js:18-22, 40-43` | 20 → 12 |
+| 3 | Petición sin limpieza ni control de la carrera | `src/ai/api.js:11-12`, `src/ai/useExams.js:11-23` | 12 → 7 |
+| 4 | La lista no se refresca tras borrar | `src/ai/useExams.js:27-33` | 7 → 3 |
+| 5 | Doble envío en `create` | `src/ai/useExams.js:35-46` | 3 → 0 |
+
+Evidencias en [`docs/evidencias/`](docs/evidencias) (salidas de las pruebas y de `examctl`) y capturas en
+[`docs/capturas/`](docs/capturas).
+
+## Backend Django (extra)
+
+La carpeta [`backend/`](backend) implementa el mismo contrato con Django REST Framework y `django-cors-headers`:
+
+```powershell
+cd backend
+python -m venv .venv
+.venv\Scriptsctivate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py seed_exams          # los mismos seis cuestionarios de la API simulada
+python manage.py test exams          # 10 pruebas: contrato de la API y CORS
+python manage.py runserver 8000
+```
+
+En otra terminal, en la raíz: crear `.env.local` con `VITE_API_URL=http://localhost:8000/api` y ejecutar `npm run dev`.
+El panel «Red simulada» desaparece y la pantalla usa la API real. `examctl` también funciona contra ella:
+`npm run examctl -- list --url http://127.0.0.1:8000/api`.
+
 ## Convenciones del curso
 
 Código, nombres de variables y comentarios en inglés; explicaciones y entregables en español. Componentes en
