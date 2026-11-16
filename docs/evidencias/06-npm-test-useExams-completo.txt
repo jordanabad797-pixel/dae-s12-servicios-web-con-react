@@ -1,0 +1,14 @@
+
+> dae-s12-servicios-web-con-react@0.1.0 test
+> vitest run --mode team useExams
+
+
+ RUN  v3.2.7 C:/Users/Jordan/Documents/Lab12Django/dae-s12-servicios-web-con-react
+
+ ✓ src/test/useExams.test.jsx (18 tests) 709ms
+
+ Test Files  1 passed (1)
+      Tests  18 passed (18)
+   Start at  19:54:54
+   Duration  2.10s (transform 77ms, setup 175ms, collect 232ms, tests 709ms, environment 481ms, prepare 210ms)
+

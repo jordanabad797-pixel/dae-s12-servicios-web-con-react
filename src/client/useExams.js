@@ -13,15 +13,30 @@
 //
 // Rule of the course: no hook inside an if, a loop or after a return.
 import { isCancel } from "axios";
-import { useCallback, useEffect, useState } from "react";
-import { describeError, listExams } from "./api";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { createExam, deleteExam, describeError, listExams } from "./api";
 
 export default function useExams() {
   const [status, setStatus] = useState("loading");
   const [exams, setExams] = useState([]);
   const [error, setError] = useState(null);
+  const [actionError, setActionError] = useState(null);
+  const [saving, setSaving] = useState(false);
   // Every call to reload() bumps this counter; the effect depends on it and lists again.
   const [attempt, setAttempt] = useState(0);
+
+  // Guards that must change SYNCHRONOUSLY. A state update is only visible on the next render, so two clicks in the
+  // same tick would both read `saving === false`; a ref is read and written at once, in the same event.
+  const savingRef = useRef(false);
+  const deletingRef = useRef(new Set()); // ids with a DELETE in flight
+  const mountedRef = useRef(false); // no state updates after unmount (remove/create are not inside an effect)
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
   // The request that lists, with its three states: loading -> ready | error.
   // Two guards, because they solve different problems:
@@ -61,14 +76,43 @@ export default function useExams() {
     setAttempt((n) => n + 1);
   }, []);
 
-  return {
-    status,
-    exams,
-    error,
-    actionError: null,
-    saving: false,
-    reload,
-    remove: async () => false,
-    create: async () => false,
-  };
+  // DELETE /exams/<id>/. Team decision: when the server CONFIRMS (204), the row is filtered out locally. It is not
+  // optimistic (on error the row stays) and it does not ask for the whole list again (one request instead of two,
+  // no "loading" flash, and the server already told us the only thing that changed).
+  const remove = useCallback(async (id) => {
+    if (deletingRef.current.has(id)) return false; // the same row cannot be deleted twice at the same time
+    deletingRef.current.add(id);
+    setActionError(null);
+    try {
+      await deleteExam(id);
+      if (mountedRef.current) setExams((current) => current.filter((exam) => exam.id !== id));
+      return true;
+    } catch (err) {
+      if (mountedRef.current) setActionError(describeError(err));
+      return false;
+    } finally {
+      deletingRef.current.delete(id);
+    }
+  }, []);
+
+  // POST /exams/. A second call while the first one is in flight is ignored (no duplicated exams).
+  const create = useCallback(async (title) => {
+    if (savingRef.current) return false;
+    savingRef.current = true;
+    setSaving(true);
+    setActionError(null);
+    try {
+      const exam = await createExam(title);
+      if (mountedRef.current) setExams((current) => [...current, exam]);
+      return true;
+    } catch (err) {
+      if (mountedRef.current) setActionError(describeError(err));
+      return false;
+    } finally {
+      savingRef.current = false;
+      if (mountedRef.current) setSaving(false);
+    }
+  }, []);
+
+  return { status, exams, error, actionError, saving, reload, remove, create };
 }
