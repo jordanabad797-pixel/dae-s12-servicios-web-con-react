@@ -153,7 +153,7 @@ La carpeta [`backend/`](backend) implementa el mismo contrato con Django REST Fr
 ```powershell
 cd backend
 python -m venv .venv
-.venv\Scriptsctivate
+.venv\Scripts\activate
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py seed_exams          # los mismos seis cuestionarios de la API simulada
