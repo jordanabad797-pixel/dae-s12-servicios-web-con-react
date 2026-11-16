@@ -1,0 +1,15 @@
+$ npm run examctl -- cors-check --origin https://sitio-malo.example   (API con npm run api -- --wildcard)
+[stdout] Origen https://sitio-malo.example: Access-Control-Allow-Origin = *
+[stderr] La API acepta cualquier origen (comodín): es más permisivo de lo necesario.
+[exit code] 9
+
+$ npm run examctl -- cors-check --origin http://localhost:5173   (API con npm run api -- --wildcard)
+[stdout] Origen http://localhost:5173: Access-Control-Allow-Origin = *
+[stderr] La API acepta cualquier origen (comodín): es más permisivo de lo necesario.
+[exit code] 9
+
+$ npm run examctl -- cors-check --origin https://sitio-malo.example --json   (API con npm run api -- --wildcard)
+[stdout] {"origin":"https://sitio-malo.example","allowOrigin":"*","allowed":true,"wildcard":true}
+[stderr] La API acepta cualquier origen (comodín): es más permisivo de lo necesario.
+[exit code] 9
+

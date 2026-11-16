@@ -1,0 +1,75 @@
+$ npm run examctl -- list
+[stdout]   1  Django · Modelos y migraciones  (6 preguntas)
+  2  Django · Plantillas  (4 preguntas)
+  3  Django · ORM y consultas  (8 preguntas)
+  4  API REST con DRF  (5 preguntas)
+  5  React · Componentes y eventos  (7 preguntas)
+  6  React · Hooks  (3 preguntas)
+[stderr] 
+[exit code] 0
+
+$ npm run examctl -- list --json
+[stdout] [{"id":1,"title":"Django · Modelos y migraciones","created_at":"2026-09-12T10:00:00Z","question_count":6},{"id":2,"title":"Django · Plantillas","created_at":"2026-09-19T10:00:00Z","question_count":4},{"id":3,"title":"Django · ORM y consultas","created_at":"2026-09-26T10:00:00Z","question_count":8},{"id":4,"title":"API REST con DRF","created_at":"2026-10-03T10:00:00Z","question_count":5},{"id":5,"title":"React · Componentes y eventos","created_at":"2026-10-24T10:00:00Z","question_count":7},{"id":6,"title":"React · Hooks","created_at":"2026-10-31T10:00:00Z","question_count":3}]
+[stderr] 
+[exit code] 0
+
+$ npm run examctl -- create "Examen final" --json
+[stdout] {"id":7,"title":"Examen final","created_at":"2026-11-16T00:56:55.809Z","question_count":0}
+[stderr] 
+[exit code] 0
+
+$ npm run examctl -- delete 3 --yes
+[stdout] Eliminado 3
+[stderr] 
+[exit code] 0
+
+$ npm run examctl -- delete 2
+[stdout] 
+[stderr] delete borra el cuestionario 2 y no se puede deshacer: repite el comando con --yes.
+[exit code] 8
+
+$ npm run examctl -- create "" --json
+[stdout] 
+[stderr] Datos no válidos. title: Este campo no puede estar en blanco.
+[exit code] 4
+
+$ npm run examctl -- create "   "
+[stdout] 
+[stderr] Datos no válidos. title: Este campo no puede estar en blanco.
+[exit code] 4
+
+$ npm run examctl -- delete 99 --yes
+[stdout] 
+[stderr] No existe en el servidor.
+[exit code] 5
+
+$ npm run examctl -- list --json
+[stdout] [{"id":1,"title":"Django · Modelos y migraciones","created_at":"2026-09-12T10:00:00Z","question_count":6},{"id":2,"title":"Django · Plantillas","created_at":"2026-09-19T10:00:00Z","question_count":4},{"id":4,"title":"API REST con DRF","created_at":"2026-10-03T10:00:00Z","question_count":5},{"id":5,"title":"React · Componentes y eventos","created_at":"2026-10-24T10:00:00Z","question_count":7},{"id":6,"title":"React · Hooks","created_at":"2026-10-31T10:00:00Z","question_count":3},{"id":7,"title":"Examen final","created_at":"2026-11-16T00:56:55.809Z","question_count":0}]
+[stderr] 
+[exit code] 0
+
+$ npm run examctl -- frobnicate
+[stdout] 
+[stderr] Uso: examctl <list | create <título> | delete <id> --yes | cors-check --origin <origen>> [--url <base>] [--json]
+[exit code] 2
+
+$ npm run examctl -- list --url http://127.0.0.1:9999/api
+[stdout] 
+[stderr] Sin conexión con la API (ECONNREFUSED).
+[exit code] 3
+
+$ npm run examctl -- cors-check --origin http://localhost:5173
+[stdout] Origen http://localhost:5173: Access-Control-Allow-Origin = http://localhost:5173
+[stderr] 
+[exit code] 0
+
+$ npm run examctl -- cors-check --origin https://sitio-malo.example
+[stdout] Origen https://sitio-malo.example: Access-Control-Allow-Origin = (ausente: el navegador lo bloquea)
+[stderr] La API no autoriza ese origen.
+[exit code] 7
+
+$ npm run examctl -- cors-check --origin http://localhost:3000
+[stdout] Origen http://localhost:3000: Access-Control-Allow-Origin = (ausente: el navegador lo bloquea)
+[stderr] La API no autoriza ese origen.
+[exit code] 7
+
