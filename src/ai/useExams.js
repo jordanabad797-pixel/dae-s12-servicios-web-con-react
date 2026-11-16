@@ -1,3 +1,4 @@
+import { isCancel } from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { createExam, deleteExam, describeError, listExams } from "./api";
 
@@ -9,19 +10,28 @@ export default function useExams() {
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
+    // FIX 3 (no cleanup, race): abort on cleanup and ignore an answer that is no longer the current one.
+    const controller = new AbortController();
+    let cancelled = false;
     setStatus("loading");
-    listExams()
+    listExams({ signal: controller.signal })
       .then((data) => {
+        if (cancelled) return;
         setExams(data);
         setError(null);
         setStatus("ready");
       })
       .catch((err) => {
+        if (cancelled || isCancel(err)) return;
         // FIX 2 (swallowed error): the error reaches the screen, not only the console.
         setExams([]);
         setError(describeError(err));
         setStatus("error");
       });
+    return () => {
+      cancelled = true;
+      controller.abort();
+    };
   }, [attempt]);
 
   const reload = useCallback(() => {
