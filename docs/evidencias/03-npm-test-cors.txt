@@ -1,0 +1,14 @@
+
+> dae-s12-servicios-web-con-react@0.1.0 test
+> vitest run --mode team cors
+
+
+ RUN  v3.2.7 C:/Users/Jordan/Documents/Lab12Django/dae-s12-servicios-web-con-react
+
+ ✓ src/test/cors.test.js (8 tests) 59ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  19:53:48
+   Duration  1.44s (transform 65ms, setup 150ms, collect 224ms, tests 59ms, environment 512ms, prepare 210ms)
+
