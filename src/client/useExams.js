@@ -11,22 +11,46 @@
 //   remove(id)   DELETE; when the server confirms, the exam disappears from `exams`; resolves true or false
 //   create(title) POST; when the server confirms, the new exam is added; resolves true or false
 //
-// TODO 1: the state and a useEffect that lists, with the three states. The effect gets an AbortController and a
-//         `cancelled` flag, and its cleanup sets the flag and aborts: a late answer must never overwrite a newer one.
-// TODO 2: `reload` (a counter that is a dependency of the effect is enough).
-// TODO 3: `remove` and `create`. NEVER swallow an error: set `actionError` with describeError. `create` must
-//         ignore a second call while the first one is still in flight (use a ref: a state is too late).
 // Rule of the course: no hook inside an if, a loop or after a return.
-import { createExam, deleteExam, describeError, listExams } from "./api";
+import { useCallback, useEffect, useState } from "react";
+import { describeError, listExams } from "./api";
 
 export default function useExams() {
+  const [status, setStatus] = useState("loading");
+  const [exams, setExams] = useState([]);
+  const [error, setError] = useState(null);
+  // Every call to reload() bumps this counter; the effect depends on it and lists again.
+  const [attempt, setAttempt] = useState(0);
+
+  // The request that lists, with its three states: loading -> ready | error.
+  useEffect(() => {
+    listExams()
+      .then((data) => {
+        setExams(data);
+        setError(null);
+        setStatus("ready");
+      })
+      .catch((err) => {
+        setExams([]);
+        setError(describeError(err));
+        setStatus("error");
+      });
+  }, [attempt]);
+
+  const reload = useCallback(() => {
+    setStatus("loading");
+    setError(null);
+    setExams([]);
+    setAttempt((n) => n + 1);
+  }, []);
+
   return {
-    status: "loading",
-    exams: [],
-    error: null,
+    status,
+    exams,
+    error,
     actionError: null,
     saving: false,
-    reload: () => {},
+    reload,
     remove: async () => false,
     create: async () => false,
   };
