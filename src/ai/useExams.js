@@ -39,11 +39,17 @@ export default function useExams() {
     setAttempt((n) => n + 1);
   }, []);
 
+  // FIX 4 (list not refreshed after delete): when the server confirms, the row is filtered out locally;
+  // on error the row stays, the person reads why, and the caller gets true or false.
   const remove = useCallback(async (id) => {
+    setActionError(null);
     try {
       await deleteExam(id);
+      setExams((current) => current.filter((exam) => exam.id !== id));
+      return true;
     } catch (err) {
-      console.error("Error deleting exam", err);
+      setActionError(describeError(err));
+      return false;
     }
   }, []);
 

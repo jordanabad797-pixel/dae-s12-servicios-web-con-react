@@ -1,0 +1,148 @@
+
+> dae-s12-servicios-web-con-react@0.1.0 test:ai
+> vitest run --mode ai
+
+
+ RUN  v3.2.7 C:/Users/Jordan/Documents/Lab12Django/dae-s12-servicios-web-con-react
+
+ ✓ src/test/cli.test.js (14 tests) 783ms
+   ✓ examctl · como proceso > node cli/examctl.mjs list --json imprime JSON en stdout y termina con código 0  312ms
+   ✓ examctl · como proceso > y con el servidor apagado termina con código 3  335ms
+(node:36132) PromiseRejectionHandledWarning: Promise rejection was handled asynchronously (rejection id: 4)
+(Use `node --trace-warnings ...` to show where the warning was created)
+ ✓ src/test/cors.test.js (8 tests) 56ms
+ ✓ src/test/api.test.js (14 tests) 268ms
+ ✓ src/test/App.test.jsx (3 tests) 295ms
+ ❯ src/test/useExams.test.jsx (18 tests | 2 failed) 553ms
+   ✓ useExams · los tres estados de la petición > empieza en loading, sin datos ni error, y pide GET /exams/ una vez 28ms
+   ✓ useExams · los tres estados de la petición > cuando llegan los datos pasa a ready con los cuestionarios 13ms
+   ✓ useExams · los tres estados de la petición > si la API responde 500 pasa a error, con una frase que dice el estado, y sin datos 15ms
+   ✓ useExams · los tres estados de la petición > si el servidor está apagado (o CORS bloquea) pasa a error y lo explica 15ms
+   ✓ useExams · los tres estados de la petición > reload vuelve a loading, pide otra vez y muestra lo nuevo 39ms
+   ✓ useExams · los tres estados de la petición > reload después de un error: error, loading y ready 47ms
+   ✓ useExams · limpieza y carrera de peticiones > al desmontar aborta la petición en vuelo 3ms
+   ✓ useExams · limpieza y carrera de peticiones > al pedir otra vez (reload) aborta la petición anterior 4ms
+   ✓ useExams · limpieza y carrera de peticiones > si la primera respuesta llega DESPUÉS de la segunda, no pisa a la nueva 38ms
+   ✓ useExams · limpieza y carrera de peticiones > si la respuesta llega después de desmontar, no pasa nada (ni avisos en la consola) 15ms
+   ✓ useExams · limpieza y carrera de peticiones > con StrictMode (el efecto corre dos veces) solo queda viva una petición y la pantalla acaba bien 16ms
+   ✓ useExams · borrar > remove(id) hace DELETE y el cuestionario desaparece de la lista sin recargar 40ms
+   ✓ useExams · borrar > si la API falla (500), la fila se queda, se explica el error y remove devuelve false 46ms
+   ✓ useExams · crear > create(title) hace POST y añade el cuestionario creado al final 63ms
+   × useExams · crear > mientras el POST está en vuelo saving es true, y vuelve a false al terminar 39ms
+     → expected false to be true // Object.is equality
+   × useExams · crear > dos create seguidos, con el primero en vuelo, envían un solo POST 12ms
+     → expected [ { method: 'POST', …(8) }, …(1) ] to have a length of 1 but got 2
+   ✓ useExams · crear > un título vacío: la API responde 400, se muestra su mensaje y la lista no cambia 36ms
+   ✓ useExams · crear > después de un error se puede volver a crear (saving no se queda atascado) 79ms
+ ❯ src/test/ExamList.test.jsx (10 tests | 1 failed) 1240ms
+   ✓ ExamList · los tres estados que ve la persona > cargando: un aviso de estado y ni tabla ni error 83ms
+   ✓ ExamList · los tres estados que ve la persona > con datos: una fila por cuestionario y el aviso de carga desaparece 65ms
+   ✓ ExamList · los tres estados que ve la persona > con datos vacíos: dice que todavía no hay cuestionarios 22ms
+   ✓ ExamList · los tres estados que ve la persona > con la API caída (500): una alerta con el mensaje y el botón Reintentar, no una lista vacía 30ms
+   ✓ ExamList · los tres estados que ve la persona > con el servidor apagado: la alerta lo dice, y Reintentar vuelve a cargar y muestra los datos 120ms
+   ✓ ExamList · borrar y crear > Eliminar quita la fila sin recargar la página 125ms
+   ✓ ExamList · borrar y crear > si Eliminar falla: la fila sigue y una alerta explica el error 82ms
+   ✓ ExamList · borrar y crear > Agregar crea el cuestionario, lo muestra y vacía el campo  347ms
+   × ExamList · borrar y crear > un doble clic en Agregar envía un solo POST y el botón se desactiva mientras espera 317ms
+     → expected [ { method: 'POST', …(8) }, …(1) ] to have a length of 1 but got 2
+   ✓ ExamList · borrar y crear > con el título vacío se muestra el mensaje de la API, no una pantalla muda 48ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/ExamList.test.jsx > ExamList · borrar y crear > un doble clic en Agregar envía un solo POST y el botón se desactiva mientras espera
+AssertionError: expected [ { method: 'POST', …(8) }, …(1) ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ src/test/ExamList.test.jsx:93:77
+     91|     const button = screen.getByRole("button", { name: "Agregar" });
+     92|     await userEvent.dblClick(button);
+     93|     expect(network.requests.filter((request) => request.method === "PO…
+       |                                                                             ^
+     94|     expect(screen.getByRole("button", { name: "Guardando…" })).toBeDis…
+     95|     await releaseAll(network);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > mientras el POST está en vuelo saving es true, y vuelve a false al terminar
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/test/useExams.test.jsx:171:35
+    169|       result.current.create("Examen final");
+    170|     });
+    171|     expect(result.current.saving).toBe(true);
+       |                                   ^
+    172|     await release(network);
+    173|     await waitFor(() => expect(result.current.saving).toBe(false));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > dos create seguidos, con el primero en vuelo, envían un solo POST
+AssertionError: expected [ { method: 'POST', …(8) }, …(1) ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ src/test/useExams.test.jsx:183:77
+    181|       second = result.current.create("Examen final");
+    182|     });
+    183|     expect(network.requests.filter((request) => request.method === "PO…
+       |                                                                             ^
+    184|     await releaseAll(network);
+    185|     await expect(second).resolves.toBe(false);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+CanceledError: canceled
+ ❯ AbortSignal.<anonymous> src/lib/fakeNetwork.js:102:16
+    100|         request.aborted = true;
+    101|         clearTimeout(timer);
+    102|         reject(new CanceledError(null, config, request));
+       |                ^
+    103|       });
+    104|     });
+ ❯ AbortSignal.callTheUserObjectsOperation node_modules/jsdom/lib/jsdom/living/generated/EventListener.js:26:30
+ ❯ innerInvokeEventListeners node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:350:25
+ ❯ invokeEventListeners node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3
+ ❯ AbortSignalImpl._dispatch node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9
+ ❯ fireAnEvent node_modules/jsdom/lib/jsdom/living/helpers/events.js:18:36
+ ❯ AbortSignalImpl._runAbortStep node_modules/jsdom/lib/jsdom/living/aborting/AbortSignal-impl.js:112:5
+ ❯ AbortSignalImpl._signalAbort node_modules/jsdom/lib/jsdom/living/aborting/AbortSignal-impl.js:99:10
+ ❯ AbortControllerImpl.abort node_modules/jsdom/lib/jsdom/living/aborting/AbortController-impl.js:11:17
+ ❯ AbortController.abort node_modules/jsdom/lib/jsdom/living/generated/AbortController.js:112:34
+ ❯ Axios.request node_modules/axios/lib/core/Axios.js:80:43
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { description: undefined, number: undefined, config: { transitional: { silentJSONParsing: true, forcedJSONParsing: true, clarifyTimeoutError: false, legacyInterceptorReqResOrdering: true, advertiseZstdAcceptEncoding: false, validateStatusUndefinedResolves: true, encodeBasicAuthUsername: false }, adapter: 'Function<adapter>', transformRequest: [ 'Function<transformRequest>' ], transformResponse: [ 'Function<transformResponse>' ], timeout: 8000, xsrfCookieName: 'XSRF-TOKEN', xsrfHeaderName: 'X-XSRF-TOKEN', maxContentLength: -1, maxBodyLength: -1, env: { FormData: 'Function<FormData>', Blob: 'Function<Blob>' }, validateStatus: 'Function<validateStatus>', headers: { Accept: 'application/json' }, baseURL: 'http://localhost:8000/api', signal: {}, method: 'get', url: '/exams/', allowAbsoluteUrls: true }, code: 'ERR_CANCELED', status: undefined }
+This error originated in "src/test/api.test.js" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "listExams entrega la señal a Axios: al abortar, la petición se cancela". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  2 failed | 4 passed (6)
+      Tests  3 failed | 64 passed (67)
+     Errors  1 error
+   Start at  19:56:26
+   Duration  3.37s (transform 224ms, setup 1.45s, collect 1.69s, tests 3.19s, environment 4.59s, prepare 1.39s)
+
