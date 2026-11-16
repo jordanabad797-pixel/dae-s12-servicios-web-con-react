@@ -1,5 +1,5 @@
 import { isCancel } from "axios";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createExam, deleteExam, describeError, listExams } from "./api";
 
 export default function useExams() {
@@ -8,6 +8,9 @@ export default function useExams() {
   const [error, setError] = useState(null);
   const [actionError, setActionError] = useState(null);
   const [attempt, setAttempt] = useState(0);
+  // FIX 5 (double submit): `saving` for the button, and a ref for the guard (a state is only seen on the next render).
+  const [saving, setSaving] = useState(false);
+  const savingRef = useRef(false);
 
   useEffect(() => {
     // FIX 3 (no cleanup, race): abort on cleanup and ignore an answer that is no longer the current one.
@@ -54,6 +57,9 @@ export default function useExams() {
   }, []);
 
   const create = useCallback(async (title) => {
+    if (savingRef.current) return false; // FIX 5: a second call while the first is in flight does nothing
+    savingRef.current = true;
+    setSaving(true);
     setActionError(null);
     try {
       const exam = await createExam(title);
@@ -62,8 +68,11 @@ export default function useExams() {
     } catch (err) {
       setActionError(describeError(err)); // FIX 2: the API's message is shown to the person
       return false;
+    } finally {
+      savingRef.current = false;
+      setSaving(false);
     }
   }, []);
 
-  return { status, exams, error, actionError, saving: false, reload, remove, create };
+  return { status, exams, error, actionError, saving, reload, remove, create };
 }
