@@ -1,0 +1,1341 @@
+
+> dae-s12-servicios-web-con-react@0.1.0 test:ai
+> vitest run --mode ai
+
+
+ RUN  v3.2.7 C:/Users/Jordan/Documents/Lab12Django/dae-s12-servicios-web-con-react
+
+ ✓ src/test/cli.test.js (14 tests) 737ms
+   ✓ examctl · como proceso > node cli/examctl.mjs list --json imprime JSON en stdout y termina con código 0  300ms
+   ✓ examctl · como proceso > y con el servidor apagado termina con código 3  311ms
+ ✓ src/test/cors.test.js (8 tests) 53ms
+ ❯ src/test/api.test.js (14 tests | 1 failed) 292ms
+   ✓ api · el cliente está configurado en un solo sitio > es una instancia de Axios con la dirección base de la API, sin barra final 2ms
+   ✓ api · el cliente está configurado en un solo sitio > tiene un tiempo de espera máximo 0ms
+   ✓ api · el cliente está configurado en un solo sitio > todas las llamadas salen hacia la dirección base (cambiarla las mueve a todas) 47ms
+   ✓ api · listExams, createExam y deleteExam > listExams hace GET /exams/ (con la barra final) y devuelve el arreglo, no la respuesta 30ms
+   × api · listExams, createExam y deleteExam > listExams entrega la señal a Axios: al abortar, la petición se cancela 38ms
+     → expected false to be true // Object.is equality
+   ✓ api · listExams, createExam y deleteExam > createExam hace POST /exams/ con { title } y devuelve el cuestionario creado 23ms
+   ✓ api · listExams, createExam y deleteExam > deleteExam hace DELETE /exams/<id>/ y no devuelve nada 32ms
+   ✓ api · listExams, createExam y deleteExam > un título vacío rechaza con el 400 de la API (el cliente no lo oculta) 17ms
+   ✓ api · describeError > sin conexión (o CORS): dice que no pudo conectar y menciona el servidor y CORS 30ms
+   ✓ api · describeError > tiempo agotado: dice que tardó demasiado 0ms
+   ✓ api · describeError > 400: muestra el mensaje de la API para el campo 8ms
+   ✓ api · describeError > 404: dice que el recurso ya no existe 31ms
+   ✓ api · describeError > 500: incluye el número del estado 32ms
+   ✓ api · describeError > un error cualquiera da una frase, nunca una cadena vacía 0ms
+stderr | src/test/useExams.test.jsx > useExams · borrar > si la API falla (500), la fila se queda, se explica el error y remove devuelve false
+Error deleting exam AxiosError: Request failed with status code 500
+    at Object.deliver (C:\Users\Jordan\Documents\Lab12Django\dae-s12-servicios-web-con-react\src\lib\fakeNetwork.js:92:16)
+    at release (C:\Users\Jordan\Documents\Lab12Django\dae-s12-servicios-web-con-react\src\test\helpers.js:24:27)
+    at C:\Users\Jordan\Documents\Lab12Django\dae-s12-servicios-web-con-react\src\test\useExams.test.jsx:144:11
+    at file:///C:/Users/Jordan/Documents/Lab12Django/dae-s12-servicios-web-con-react/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+    at Axios.request (file:///C:/Users/Jordan/Documents/Lab12Django/dae-s12-servicios-web-con-react/node_modules/axios/lib/core/Axios.js:80:43)
+    at Object.remove (C:\Users\Jordan\Documents\Lab12Django\dae-s12-servicios-web-con-react\src\ai\useExams.js:34:7) {
+  isAxiosError: true,
+  code: 'ERR_BAD_RESPONSE',
+  config: [Object: null prototype] {
+    transitional: {
+      silentJSONParsing: true,
+      forcedJSONParsing: true,
+      clarifyTimeoutError: false,
+      legacyInterceptorReqResOrdering: true,
+      advertiseZstdAcceptEncoding: false,
+      validateStatusUndefinedResolves: true,
+      encodeBasicAuthUsername: false
+    },
+    adapter: [Function: adapter],
+    transformRequest: [ [Function: transformRequest] ],
+    transformResponse: [ [Function: transformResponse] ],
+    timeout: 8000,
+    xsrfCookieName: 'XSRF-TOKEN',
+    xsrfHeaderName: 'X-XSRF-TOKEN',
+    maxContentLength: -1,
+    maxBodyLength: -1,
+    env: { FormData: [Function], Blob: [class Blob] },
+    validateStatus: [Function: validateStatus],
+    headers: Object [AxiosHeaders] {
+      Accept: 'application/json',
+      'Content-Type': undefined
+    },
+    baseURL: 'http://localhost:8000/api',
+    method: 'delete',
+    url: '/exams/3/',
+    allowAbsoluteUrls: true,
+    data: undefined
+  },
+  request: {
+    method: 'DELETE',
+    url: 'http://localhost:8000/api/exams/3/',
+    path: '/api/exams/3/',
+    body: undefined,
+    signal: undefined,
+    aborted: false,
+    corsBlocked: false,
+    released: true,
+    release: [Function: deliver]
+  },
+  response: {
+    data: { detail: 'Error interno del servidor.' },
+    status: 500,
+    statusText: '500',
+    headers: Object [AxiosHeaders] {
+      'access-control-allow-origin': 'http://localhost:5173',
+      vary: 'Origin'
+    },
+    config: [Object: null prototype] {
+      transitional: [Object],
+      adapter: [Function: adapter],
+      transformRequest: [Array],
+      transformResponse: [Array],
+      timeout: 8000,
+      xsrfCookieName: 'XSRF-TOKEN',
+      xsrfHeaderName: 'X-XSRF-TOKEN',
+      maxContentLength: -1,
+      maxBodyLength: -1,
+      env: [Object],
+      validateStatus: [Function: validateStatus],
+      headers: [Object [AxiosHeaders]],
+      baseURL: 'http://localhost:8000/api',
+      method: 'delete',
+      url: '/exams/3/',
+      allowAbsoluteUrls: true,
+      data: undefined
+    },
+    request: {
+      method: 'DELETE',
+      url: 'http://localhost:8000/api/exams/3/',
+      path: '/api/exams/3/',
+      body: undefined,
+      signal: undefined,
+      aborted: false,
+      corsBlocked: false,
+      released: true,
+      release: [Function: deliver]
+    },
+    duration: 1
+  },
+  status: 500
+}
+
+ ✓ src/test/App.test.jsx (3 tests) 324ms
+ ❯ src/test/useExams.test.jsx (18 tests | 8 failed) 540ms
+   ✓ useExams · los tres estados de la petición > empieza en loading, sin datos ni error, y pide GET /exams/ una vez 22ms
+   ✓ useExams · los tres estados de la petición > cuando llegan los datos pasa a ready con los cuestionarios 16ms
+   ✓ useExams · los tres estados de la petición > si la API responde 500 pasa a error, con una frase que dice el estado, y sin datos 39ms
+   ✓ useExams · los tres estados de la petición > si el servidor está apagado (o CORS bloquea) pasa a error y lo explica 15ms
+   ✓ useExams · los tres estados de la petición > reload vuelve a loading, pide otra vez y muestra lo nuevo 47ms
+   ✓ useExams · los tres estados de la petición > reload después de un error: error, loading y ready 63ms
+   × useExams · limpieza y carrera de peticiones > al desmontar aborta la petición en vuelo 5ms
+     → expected false to be true // Object.is equality
+   × useExams · limpieza y carrera de peticiones > al pedir otra vez (reload) aborta la petición anterior 3ms
+     → expected false to be true // Object.is equality
+   × useExams · limpieza y carrera de peticiones > si la primera respuesta llega DESPUÉS de la segunda, no pisa a la nueva 35ms
+     → expected [ 1, 2, 3, 4, 5, 6 ] to deeply equal [ 1, 2 ]
+   ✓ useExams · limpieza y carrera de peticiones > si la respuesta llega después de desmontar, no pasa nada (ni avisos en la consola) 13ms
+   × useExams · limpieza y carrera de peticiones > con StrictMode (el efecto corre dos veces) solo queda viva una petición y la pantalla acaba bien 6ms
+     → expected [ { method: 'GET', …(8) }, …(1) ] to have a length of 1 but got 2
+   × useExams · borrar > remove(id) hace DELETE y el cuestionario desaparece de la lista sin recargar 47ms
+     → expected undefined to be true // Object.is equality
+   × useExams · borrar > si la API falla (500), la fila se queda, se explica el error y remove devuelve false 20ms
+     → expected undefined to be false // Object.is equality
+   ✓ useExams · crear > create(title) hace POST y añade el cuestionario creado al final 35ms
+   × useExams · crear > mientras el POST está en vuelo saving es true, y vuelve a false al terminar 25ms
+     → expected false to be true // Object.is equality
+   × useExams · crear > dos create seguidos, con el primero en vuelo, envían un solo POST 16ms
+     → expected [ { method: 'POST', …(8) }, …(1) ] to have a length of 1 but got 2
+   ✓ useExams · crear > un título vacío: la API responde 400, se muestra su mensaje y la lista no cambia 30ms
+   ✓ useExams · crear > después de un error se puede volver a crear (saving no se queda atascado) 99ms
+stderr | src/test/ExamList.test.jsx > ExamList · borrar y crear > si Eliminar falla: la fila sigue y una alerta explica el error
+Error deleting exam AxiosError: Request failed with status code 500
+    at Object.deliver (C:\Users\Jordan\Documents\Lab12Django\dae-s12-servicios-web-con-react\src\lib\fakeNetwork.js:92:16)
+    at release (C:\Users\Jordan\Documents\Lab12Django\dae-s12-servicios-web-con-react\src\test\helpers.js:24:27)
+    at C:\Users\Jordan\Documents\Lab12Django\dae-s12-servicios-web-con-react\src\test\ExamList.test.jsx:74:11
+    at file:///C:/Users/Jordan/Documents/Lab12Django/dae-s12-servicios-web-con-react/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+    at Axios.request (file:///C:/Users/Jordan/Documents/Lab12Django/dae-s12-servicios-web-con-react/node_modules/axios/lib/core/Axios.js:80:43)
+    at C:\Users\Jordan\Documents\Lab12Django\dae-s12-servicios-web-con-react\src\ai\useExams.js:34:7 {
+  isAxiosError: true,
+  code: 'ERR_BAD_RESPONSE',
+  config: [Object: null prototype] {
+    transitional: {
+      silentJSONParsing: true,
+      forcedJSONParsing: true,
+      clarifyTimeoutError: false,
+      legacyInterceptorReqResOrdering: true,
+      advertiseZstdAcceptEncoding: false,
+      validateStatusUndefinedResolves: true,
+      encodeBasicAuthUsername: false
+    },
+    adapter: [Function: adapter],
+    transformRequest: [ [Function: transformRequest] ],
+    transformResponse: [ [Function: transformResponse] ],
+    timeout: 8000,
+    xsrfCookieName: 'XSRF-TOKEN',
+    xsrfHeaderName: 'X-XSRF-TOKEN',
+    maxContentLength: -1,
+    maxBodyLength: -1,
+    env: { FormData: [Function], Blob: [class Blob] },
+    validateStatus: [Function: validateStatus],
+    headers: Object [AxiosHeaders] {
+      Accept: 'application/json',
+      'Content-Type': undefined
+    },
+    baseURL: 'http://localhost:8000/api',
+    method: 'delete',
+    url: '/exams/4/',
+    allowAbsoluteUrls: true,
+    data: undefined
+  },
+  request: {
+    method: 'DELETE',
+    url: 'http://localhost:8000/api/exams/4/',
+    path: '/api/exams/4/',
+    body: undefined,
+    signal: undefined,
+    aborted: false,
+    corsBlocked: false,
+    released: true,
+    release: [Function: deliver]
+  },
+  response: {
+    data: { detail: 'Error interno del servidor.' },
+    status: 500,
+    statusText: '500',
+    headers: Object [AxiosHeaders] {
+      'access-control-allow-origin': 'http://localhost:5173',
+      vary: 'Origin'
+    },
+    config: [Object: null prototype] {
+      transitional: [Object],
+      adapter: [Function: adapter],
+      transformRequest: [Array],
+      transformResponse: [Array],
+      timeout: 8000,
+      xsrfCookieName: 'XSRF-TOKEN',
+      xsrfHeaderName: 'X-XSRF-TOKEN',
+      maxContentLength: -1,
+      maxBodyLength: -1,
+      env: [Object],
+      validateStatus: [Function: validateStatus],
+      headers: [Object [AxiosHeaders]],
+      baseURL: 'http://localhost:8000/api',
+      method: 'delete',
+      url: '/exams/4/',
+      allowAbsoluteUrls: true,
+      data: undefined
+    },
+    request: {
+      method: 'DELETE',
+      url: 'http://localhost:8000/api/exams/4/',
+      path: '/api/exams/4/',
+      body: undefined,
+      signal: undefined,
+      aborted: false,
+      corsBlocked: false,
+      released: true,
+      release: [Function: deliver]
+    },
+    duration: 31
+  },
+  status: 500
+}
+
+ ❯ src/test/ExamList.test.jsx (10 tests | 3 failed) 1895ms
+   ✓ ExamList · los tres estados que ve la persona > cargando: un aviso de estado y ni tabla ni error 82ms
+   ✓ ExamList · los tres estados que ve la persona > con datos: una fila por cuestionario y el aviso de carga desaparece 36ms
+   ✓ ExamList · los tres estados que ve la persona > con datos vacíos: dice que todavía no hay cuestionarios 6ms
+   ✓ ExamList · los tres estados que ve la persona > con la API caída (500): una alerta con el mensaje y el botón Reintentar, no una lista vacía 28ms
+   ✓ ExamList · los tres estados que ve la persona > con el servidor apagado: la alerta lo dice, y Reintentar vuelve a cargar y muestra los datos 104ms
+   × ExamList · borrar y crear > Eliminar quita la fila sin recargar la página 396ms
+     → expect(element).not.toBeInTheDocument()
+
+expected document not to contain element, found <td>
+  API REST con DRF
+</td> instead
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"exams"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mCuestionarios[0m
+        [36m</h2>[39m
+        [36m<table>[39m
+          [36m<thead>[39m
+            [36m<tr>[39m
+              [36m<th>[39m
+                [0mTítulo[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mPreguntas[0m
+              [36m</th>[39m
+              [36m<th />[39m
+            [36m</tr>[39m
+          [36m</thead>[39m
+          [36m<tbody>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mDjango · Modelos y migraciones[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m6[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar Django · Modelos y migraciones"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mDjango · Plantillas[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m4[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar Django · Plantillas"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mDjango · ORM y consultas[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m8[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar Django · ORM y consultas"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mAPI REST con DRF[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m5[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar API REST con DRF"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mReact · Componentes y eventos[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m7[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar React · Componentes y eventos"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mReact · Hooks[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m3[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar React · Hooks"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+          [36m</tbody>[39m
+        [36m</table>[39m
+        [36m<form[39m
+          [33mclass[39m=[32m"new-exam"[39m
+        [36m>[39m
+          [36m<label[39m
+            [33mfor[39m=[32m"exam-title"[39m
+          [36m>[39m
+            [0mTítulo del cuestionario[0m
+          [36m</label>[39m
+          [36m<input[39m
+            [33mid[39m=[32m"exam-title"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"submit"[39m
+          [36m>[39m
+            [0mAgregar[0m
+          [36m</button>[39m
+        [36m</form>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</body>[39m
+[36m</html>[39m
+   × ExamList · borrar y crear > si Eliminar falla: la fila sigue y una alerta explica el error 405ms
+     → Unable to find role="alert"
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"exams"[39m
+    [36m>[39m
+      [36m<h2>[39m
+        [0mCuestionarios[0m
+      [36m</h2>[39m
+      [36m<table>[39m
+        [36m<thead>[39m
+          [36m<tr>[39m
+            [36m<th>[39m
+              [0mTítulo[0m
+            [36m</th>[39m
+            [36m<th>[39m
+              [0mPreguntas[0m
+            [36m</th>[39m
+            [36m<th />[39m
+          [36m</tr>[39m
+        [36m</thead>[39m
+        [36m<tbody>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mDjango · Modelos y migraciones[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m6[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar Django · Modelos y migraciones"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mDjango · Plantillas[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m4[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar Django · Plantillas"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mDjango · ORM y consultas[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m8[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar Django · ORM y consultas"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mAPI REST con DRF[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m5[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar API REST con DRF"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mReact · Componentes y eventos[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m7[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar React · Componentes y eventos"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mReact · Hooks[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m3[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar React · Hooks"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+        [36m</tbody>[39m
+      [36m</table>[39m
+      [36m<form[39m
+        [33mclass[39m=[32m"new-exam"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"exam-title"[39m
+        [36m>[39m
+          [0mTítulo del cuestionario[0m
+        [36m</label>[39m
+        [36m<input[39m
+          [33mid[39m=[32m"exam-title"[39m
+          [33mvalue[39m=[32m""[39m
+        [36m/>[39m
+        [36m<button[39m
+          [33mtype[39m=[32m"submit"[39m
+        [36m>[39m
+          [0mAgregar[0m
+        [36m</button>[39m
+      [36m</form>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"exams"[39m
+    [36m>[39m
+      [36m<h2>[39m
+        [0mCuestionarios[0m
+      [36m</h2>[39m
+      [36m<table>[39m
+        [36m<thead>[39m
+          [36m<tr>[39m
+            [36m<th>[39m
+              [0mTítulo[0m
+            [36m</th>[39m
+            [36m<th>[39m
+              [0mPreguntas[0m
+            [36m</th>[39m
+            [36m<th />[39m
+          [36m</tr>[39m
+        [36m</thead>[39m
+        [36m<tbody>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mDjango · Modelos y migraciones[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m6[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar Django · Modelos y migraciones"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mDjango · Plantillas[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m4[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar Django · Plantillas"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mDjango · ORM y consultas[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m8[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar Django · ORM y consultas"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mAPI REST con DRF[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m5[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar API REST con DRF"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mReact · Componentes y eventos[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m7[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar React · Componentes y eventos"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mReact · Hooks[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m3[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar React · Hooks"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+        [36m</tbody>[39m
+      [36m</table>[39m
+      [36m<form[39m
+        [33mclass[39m=[32m"new-exam"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"exam-title"[39m
+        [36m>[39m
+          [0mTítulo del cuestionario[0m
+        [36m</label>[39m
+        [36m<input[39m
+          [33mid[39m=[32m"exam-title"[39m
+          [33mvalue[39m=[32m""[39m
+        [36m/>[39m
+        [36m<button[39m
+          [33mtype[39m=[32m"submit"[39m
+        [36m>[39m
+          [0mAgregar[0m
+        [36m</button>[39m
+      [36m</form>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+   ✓ ExamList · borrar y crear > Agregar crea el cuestionario, lo muestra y vacía el campo  324ms
+   × ExamList · borrar y crear > un doble clic en Agregar envía un solo POST y el botón se desactiva mientras espera 370ms
+     → expected [ { method: 'POST', …(8) }, …(1) ] to have a length of 1 but got 2
+   ✓ ExamList · borrar y crear > con el título vacío se muestra el mensaje de la API, no una pantalla muda 141ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/api.test.js > api · listExams, createExam y deleteExam > listExams entrega la señal a Axios: al abortar, la petición se cancela
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/test/api.test.js:57:41
+     55|     controller.abort();
+     56|     await settle();
+     57|     expect(network.requests[0].aborted).toBe(true);
+       |                                         ^
+     58|     await expect(promise).rejects.toSatisfy((error) => axios.isCancel(…
+     59|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL  src/test/ExamList.test.jsx > ExamList · borrar y crear > Eliminar quita la fila sin recargar la página
+Error: expect(element).not.toBeInTheDocument()
+
+expected document not to contain element, found <td>
+  API REST con DRF
+</td> instead
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"exams"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mCuestionarios[0m
+        [36m</h2>[39m
+        [36m<table>[39m
+          [36m<thead>[39m
+            [36m<tr>[39m
+              [36m<th>[39m
+                [0mTítulo[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mPreguntas[0m
+              [36m</th>[39m
+              [36m<th />[39m
+            [36m</tr>[39m
+          [36m</thead>[39m
+          [36m<tbody>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mDjango · Modelos y migraciones[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m6[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar Django · Modelos y migraciones"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mDjango · Plantillas[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m4[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar Django · Plantillas"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mDjango · ORM y consultas[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m8[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar Django · ORM y consultas"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mAPI REST con DRF[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m5[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar API REST con DRF"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mReact · Componentes y eventos[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m7[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar React · Componentes y eventos"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mReact · Hooks[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m3[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar React · Hooks"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+          [36m</tbody>[39m
+        [36m</table>[39m
+        [36m<form[39m
+          [33mclass[39m=[32m"new-exam"[39m
+        [36m>[39m
+          [36m<label[39m
+            [33mfor[39m=[32m"exam-title"[39m
+          [36m>[39m
+            [0mTítulo del cuestionario[0m
+          [36m</label>[39m
+          [36m<input[39m
+            [33mid[39m=[32m"exam-title"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"submit"[39m
+          [36m>[39m
+            [0mAgregar[0m
+          [36m</button>[39m
+        [36m</form>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</body>[39m
+[36m</html>[39m
+ ❯ src/test/ExamList.test.jsx:66:76
+     64|     await userEvent.click(screen.getByRole("button", { name: "Eliminar…
+     65|     await release(network);
+     66|     await waitFor(() => expect(screen.queryByText("API REST con DRF"))…
+       |                                                                            ^
+     67|     expect(screen.getAllByRole("row")).toHaveLength(6);
+     68|   });
+ ❯ runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ ❯ checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ ❯ Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL  src/test/ExamList.test.jsx > ExamList · borrar y crear > si Eliminar falla: la fila sigue y una alerta explica el error
+TestingLibraryElementError: Unable to find role="alert"
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"exams"[39m
+    [36m>[39m
+      [36m<h2>[39m
+        [0mCuestionarios[0m
+      [36m</h2>[39m
+      [36m<table>[39m
+        [36m<thead>[39m
+          [36m<tr>[39m
+            [36m<th>[39m
+              [0mTítulo[0m
+            [36m</th>[39m
+            [36m<th>[39m
+              [0mPreguntas[0m
+            [36m</th>[39m
+            [36m<th />[39m
+          [36m</tr>[39m
+        [36m</thead>[39m
+        [36m<tbody>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mDjango · Modelos y migraciones[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m6[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar Django · Modelos y migraciones"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mDjango · Plantillas[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m4[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar Django · Plantillas"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mDjango · ORM y consultas[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m8[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar Django · ORM y consultas"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mAPI REST con DRF[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m5[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar API REST con DRF"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mReact · Componentes y eventos[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m7[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar React · Componentes y eventos"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mReact · Hooks[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m3[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar React · Hooks"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+        [36m</tbody>[39m
+      [36m</table>[39m
+      [36m<form[39m
+        [33mclass[39m=[32m"new-exam"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"exam-title"[39m
+        [36m>[39m
+          [0mTítulo del cuestionario[0m
+        [36m</label>[39m
+        [36m<input[39m
+          [33mid[39m=[32m"exam-title"[39m
+          [33mvalue[39m=[32m""[39m
+        [36m/>[39m
+        [36m<button[39m
+          [33mtype[39m=[32m"submit"[39m
+        [36m>[39m
+          [0mAgregar[0m
+        [36m</button>[39m
+      [36m</form>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"exams"[39m
+    [36m>[39m
+      [36m<h2>[39m
+        [0mCuestionarios[0m
+      [36m</h2>[39m
+      [36m<table>[39m
+        [36m<thead>[39m
+          [36m<tr>[39m
+            [36m<th>[39m
+              [0mTítulo[0m
+            [36m</th>[39m
+            [36m<th>[39m
+              [0mPreguntas[0m
+            [36m</th>[39m
+            [36m<th />[39m
+          [36m</tr>[39m
+        [36m</thead>[39m
+        [36m<tbody>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mDjango · Modelos y migraciones[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m6[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar Django · Modelos y migraciones"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mDjango · Plantillas[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m4[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar Django · Plantillas"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mDjango · ORM y consultas[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m8[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar Django · ORM y consultas"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mAPI REST con DRF[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m5[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar API REST con DRF"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mReact · Componentes y eventos[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m7[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar React · Componentes y eventos"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+          [36m<tr>[39m
+            [36m<td>[39m
+              [0mReact · Hooks[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [0m3[0m
+            [36m</td>[39m
+            [36m<td>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Eliminar React · Hooks"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEliminar[0m
+              [36m</button>[39m
+            [36m</td>[39m
+          [36m</tr>[39m
+        [36m</tbody>[39m
+      [36m</table>[39m
+      [36m<form[39m
+        [33mclass[39m=[32m"new-exam"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"exam-title"[39m
+        [36m>[39m
+          [0mTítulo del cuestionario[0m
+        [36m</label>[39m
+        [36m<input[39m
+          [33mid[39m=[32m"exam-title"[39m
+          [33mvalue[39m=[32m""[39m
+        [36m/>[39m
+        [36m<button[39m
+          [33mtype[39m=[32m"submit"[39m
+        [36m>[39m
+          [0mAgregar[0m
+        [36m</button>[39m
+      [36m</form>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/test/ExamList.test.jsx:75:25
+     73|     await userEvent.click(screen.getByRole("button", { name: "Eliminar…
+     74|     await release(network);
+     75|     expect(await screen.findByRole("alert")).toHaveTextContent(/500/);
+       |                         ^
+     76|     expect(screen.getByText("API REST con DRF")).toBeInTheDocument();
+     77|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL  src/test/ExamList.test.jsx > ExamList · borrar y crear > un doble clic en Agregar envía un solo POST y el botón se desactiva mientras espera
+AssertionError: expected [ { method: 'POST', …(8) }, …(1) ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ src/test/ExamList.test.jsx:93:77
+     91|     const button = screen.getByRole("button", { name: "Agregar" });
+     92|     await userEvent.dblClick(button);
+     93|     expect(network.requests.filter((request) => request.method === "PO…
+       |                                                                             ^
+     94|     expect(screen.getByRole("button", { name: "Guardando…" })).toBeDis…
+     95|     await releaseAll(network);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > al desmontar aborta la petición en vuelo
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/test/useExams.test.jsx:81:41
+     79|     expect(network.requests[0].aborted).toBe(false);
+     80|     unmount();
+     81|     expect(network.requests[0].aborted).toBe(true);
+       |                                         ^
+     82|   });
+     83| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > al pedir otra vez (reload) aborta la petición anterior
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/test/useExams.test.jsx:87:41
+     85|     const { result } = renderHook(() => useExams());
+     86|     act(() => result.current.reload());
+     87|     expect(network.requests[0].aborted).toBe(true);
+       |                                         ^
+     88|     expect(network.requests[1].aborted).toBe(false);
+     89|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/12]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > si la primera respuesta llega DESPUÉS de la segunda, no pisa a la nueva
+AssertionError: expected [ 1, 2, 3, 4, 5, 6 ] to deeply equal [ 1, 2 ]
+
+- Expected
++ Received
+
+  [
+    1,
+    2,
++   3,
++   4,
++   5,
++   6,
+  ]
+
+ ❯ src/test/useExams.test.jsx:100:57
+     98|     const fresh = result.current.exams.map((exam) => exam.id);
+     99|     await release(network, 0); // the slow answer finally arrives
+    100|     expect(result.current.exams.map((exam) => exam.id)).toEqual(fresh);
+       |                                                         ^
+    101|     expect(result.current.status).toBe("ready");
+    102|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/12]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > con StrictMode (el efecto corre dos veces) solo queda viva una petición y la pantalla acaba bien
+AssertionError: expected [ { method: 'GET', …(8) }, …(1) ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ src/test/useExams.test.jsx:116:68
+    114|     const { result } = renderHook(() => useExams(), { wrapper: StrictM…
+    115|     expect(network.requests.length).toBeGreaterThanOrEqual(2);
+    116|     expect(network.requests.filter((request) => !request.aborted)).toH…
+       |                                                                    ^
+    117|     await releaseAll(network);
+    118|     await waitFor(() => expect(result.current.status).toBe("ready"));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/12]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · borrar > remove(id) hace DELETE y el cuestionario desaparece de la lista sin recargar
+AssertionError: expected undefined to be true // Object.is equality
+
+- Expected: 
+true
+
++ Received: 
+undefined
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/12]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · borrar > si la API falla (500), la fila se queda, se explica el error y remove devuelve false
+AssertionError: expected undefined to be false // Object.is equality
+
+- Expected: 
+false
+
++ Received: 
+undefined
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/12]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > mientras el POST está en vuelo saving es true, y vuelve a false al terminar
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/test/useExams.test.jsx:171:35
+    169|       result.current.create("Examen final");
+    170|     });
+    171|     expect(result.current.saving).toBe(true);
+       |                                   ^
+    172|     await release(network);
+    173|     await waitFor(() => expect(result.current.saving).toBe(false));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/12]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > dos create seguidos, con el primero en vuelo, envían un solo POST
+AssertionError: expected [ { method: 'POST', …(8) }, …(1) ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ src/test/useExams.test.jsx:183:77
+    181|       second = result.current.create("Examen final");
+    182|     });
+    183|     expect(network.requests.filter((request) => request.method === "PO…
+       |                                                                             ^
+    184|     await releaseAll(network);
+    185|     await expect(second).resolves.toBe(false);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/12]⎯
+
+
+ Test Files  3 failed | 3 passed (6)
+      Tests  12 failed | 55 passed (67)
+   Start at  19:55:59
+   Duration  3.97s (transform 247ms, setup 1.52s, collect 1.78s, tests 3.84s, environment 4.21s, prepare 1.50s)
+
