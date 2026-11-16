@@ -1,0 +1,51 @@
+
+> dae-s12-servicios-web-con-react@0.1.0 test
+> vitest run --mode team api
+
+
+ RUN  v3.2.7 C:/Users/Jordan/Documents/Lab12Django/dae-s12-servicios-web-con-react
+
+(node:8988) PromiseRejectionHandledWarning: Promise rejection was handled asynchronously (rejection id: 4)
+(Use `node --trace-warnings ...` to show where the warning was created)
+ ✓ src/test/api.test.js (14 tests) 228ms
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+CanceledError: canceled
+ ❯ AbortSignal.<anonymous> src/lib/fakeNetwork.js:102:16
+    100|         request.aborted = true;
+    101|         clearTimeout(timer);
+    102|         reject(new CanceledError(null, config, request));
+       |                ^
+    103|       });
+    104|     });
+ ❯ AbortSignal.callTheUserObjectsOperation node_modules/jsdom/lib/jsdom/living/generated/EventListener.js:26:30
+ ❯ innerInvokeEventListeners node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:350:25
+ ❯ invokeEventListeners node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3
+ ❯ AbortSignalImpl._dispatch node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9
+ ❯ fireAnEvent node_modules/jsdom/lib/jsdom/living/helpers/events.js:18:36
+ ❯ AbortSignalImpl._runAbortStep node_modules/jsdom/lib/jsdom/living/aborting/AbortSignal-impl.js:112:5
+ ❯ AbortSignalImpl._signalAbort node_modules/jsdom/lib/jsdom/living/aborting/AbortSignal-impl.js:99:10
+ ❯ AbortControllerImpl.abort node_modules/jsdom/lib/jsdom/living/aborting/AbortController-impl.js:11:17
+ ❯ AbortController.abort node_modules/jsdom/lib/jsdom/living/generated/AbortController.js:112:34
+ ❯ Axios.request node_modules/axios/lib/core/Axios.js:80:43
+ ❯ listExams src/client/api.js:29:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { description: undefined, number: undefined, config: { transitional: { silentJSONParsing: true, forcedJSONParsing: true, clarifyTimeoutError: false, legacyInterceptorReqResOrdering: true, advertiseZstdAcceptEncoding: false, validateStatusUndefinedResolves: true, encodeBasicAuthUsername: false }, adapter: 'Function<adapter>', transformRequest: [ 'Function<transformRequest>' ], transformResponse: [ 'Function<transformResponse>' ], timeout: 8000, xsrfCookieName: 'XSRF-TOKEN', xsrfHeaderName: 'X-XSRF-TOKEN', maxContentLength: -1, maxBodyLength: -1, env: { FormData: 'Function<FormData>', Blob: 'Function<Blob>' }, validateStatus: 'Function<validateStatus>', headers: { Accept: 'application/json' }, baseURL: 'http://localhost:8000/api', signal: {}, method: 'get', url: '/exams/', allowAbsoluteUrls: true }, code: 'ERR_CANCELED', status: undefined }
+This error originated in "src/test/api.test.js" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "listExams entrega la señal a Axios: al abortar, la petición se cancela". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)
+     Errors  1 error
+   Start at  19:53:32
+   Duration  1.59s (transform 59ms, setup 182ms, collect 204ms, tests 228ms, environment 470ms, prepare 171ms)
+
