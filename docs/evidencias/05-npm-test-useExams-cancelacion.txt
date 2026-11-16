@@ -1,0 +1,227 @@
+
+> dae-s12-servicios-web-con-react@0.1.0 test
+> vitest run --mode team useExams
+
+
+ RUN  v3.2.7 C:/Users/Jordan/Documents/Lab12Django/dae-s12-servicios-web-con-react
+
+ ❯ src/test/useExams.test.jsx (18 tests | 7 failed) 1413ms
+   ✓ useExams · los tres estados de la petición > empieza en loading, sin datos ni error, y pide GET /exams/ una vez 21ms
+   ✓ useExams · los tres estados de la petición > cuando llegan los datos pasa a ready con los cuestionarios 6ms
+   ✓ useExams · los tres estados de la petición > si la API responde 500 pasa a error, con una frase que dice el estado, y sin datos 16ms
+   ✓ useExams · los tres estados de la petición > si el servidor está apagado (o CORS bloquea) pasa a error y lo explica 31ms
+   ✓ useExams · los tres estados de la petición > reload vuelve a loading, pide otra vez y muestra lo nuevo 41ms
+   ✓ useExams · los tres estados de la petición > reload después de un error: error, loading y ready 47ms
+   ✓ useExams · limpieza y carrera de peticiones > al desmontar aborta la petición en vuelo 2ms
+   ✓ useExams · limpieza y carrera de peticiones > al pedir otra vez (reload) aborta la petición anterior 3ms
+   ✓ useExams · limpieza y carrera de peticiones > si la primera respuesta llega DESPUÉS de la segunda, no pisa a la nueva 33ms
+   ✓ useExams · limpieza y carrera de peticiones > si la respuesta llega después de desmontar, no pasa nada (ni avisos en la consola) 14ms
+   ✓ useExams · limpieza y carrera de peticiones > con StrictMode (el efecto corre dos veces) solo queda viva una petición y la pantalla acaba bien 15ms
+   × useExams · borrar > remove(id) hace DELETE y el cuestionario desaparece de la lista sin recargar 39ms
+     → expected { method: 'GET', …(8) } to match object { method: 'DELETE' }
+(8 matching properties omitted from actual)
+   × useExams · borrar > si la API falla (500), la fila se queda, se explica el error y remove devuelve false 352ms
+     → .toMatch() expects to receive a string, but got object
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div />[39m
+  [36m</body>[39m
+[36m</html>[39m
+   × useExams · crear > create(title) hace POST y añade el cuestionario creado al final 26ms
+     → expected { method: 'GET', …(8) } to match object { method: 'POST', …(1) }
+(7 matching properties omitted from actual)
+   × useExams · crear > mientras el POST está en vuelo saving es true, y vuelve a false al terminar 31ms
+     → expected false to be true // Object.is equality
+   × useExams · crear > dos create seguidos, con el primero en vuelo, envían un solo POST 32ms
+     → expected [] to have a length of 1 but got +0
+   × useExams · crear > un título vacío: la API responde 400, se muestra su mensaje y la lista no cambia 332ms
+     → .toMatch() expects to receive a string, but got object
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div />[39m
+  [36m</body>[39m
+[36m</html>[39m
+   × useExams · crear > después de un error se puede volver a crear (saving no se queda atascado) 371ms
+     → expected 'React · Hooks' to be 'Bueno' // Object.is equality
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div />[39m
+  [36m</body>[39m
+[36m</html>[39m
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · borrar > remove(id) hace DELETE y el cuestionario desaparece de la lista sin recargar
+AssertionError: expected { method: 'GET', …(8) } to match object { method: 'DELETE' }
+(8 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "method": "DELETE",
++   "method": "GET",
+  }
+
+ ❯ src/test/useExams.test.jsx:130:37
+    128|       outcome = result.current.remove(3);
+    129|     });
+    130|     expect(network.requests.at(-1)).toMatchObject({ method: "DELETE" }…
+       |                                     ^
+    131|     await release(network);
+    132|     await expect(outcome).resolves.toBe(true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · borrar > si la API falla (500), la fila se queda, se explica el error y remove devuelve false
+TypeError: .toMatch() expects to receive a string, but got object
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div />[39m
+  [36m</body>[39m
+[36m</html>[39m
+ ❯ src/test/useExams.test.jsx:146:60
+    144|     await release(network);
+    145|     await expect(outcome).resolves.toBe(false);
+    146|     await waitFor(() => expect(result.current.actionError).toMatch(/50…
+       |                                                            ^
+    147|     expect(result.current.exams.map((e) => e.id)).toContain(3);
+    148|     expect(result.current.status).toBe("ready");
+ ❯ runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ ❯ checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ ❯ Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > create(title) hace POST y añade el cuestionario creado al final
+AssertionError: expected { method: 'GET', …(8) } to match object { method: 'POST', …(1) }
+(7 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "body": {
+-     "title": "Examen final",
+-   },
+-   "method": "POST",
++   "body": undefined,
++   "method": "GET",
+  }
+
+ ❯ src/test/useExams.test.jsx:159:37
+    157|       outcome = result.current.create("Examen final");
+    158|     });
+    159|     expect(network.requests.at(-1)).toMatchObject({ method: "POST", bo…
+       |                                     ^
+    160|     await release(network);
+    161|     await expect(outcome).resolves.toBe(true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > mientras el POST está en vuelo saving es true, y vuelve a false al terminar
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/test/useExams.test.jsx:171:35
+    169|       result.current.create("Examen final");
+    170|     });
+    171|     expect(result.current.saving).toBe(true);
+       |                                   ^
+    172|     await release(network);
+    173|     await waitFor(() => expect(result.current.saving).toBe(false));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > dos create seguidos, con el primero en vuelo, envían un solo POST
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ src/test/useExams.test.jsx:183:77
+    181|       second = result.current.create("Examen final");
+    182|     });
+    183|     expect(network.requests.filter((request) => request.method === "PO…
+       |                                                                             ^
+    184|     await releaseAll(network);
+    185|     await expect(second).resolves.toBe(false);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > un título vacío: la API responde 400, se muestra su mensaje y la lista no cambia
+TypeError: .toMatch() expects to receive a string, but got object
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div />[39m
+  [36m</body>[39m
+[36m</html>[39m
+ ❯ src/test/useExams.test.jsx:197:60
+    195|     await release(network);
+    196|     await expect(outcome).resolves.toBe(false);
+    197|     await waitFor(() => expect(result.current.actionError).toMatch(/Es…
+       |                                                            ^
+    198|     expect(result.current.exams).toHaveLength(6);
+    199|   });
+ ❯ runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ ❯ checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ ❯ Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > después de un error se puede volver a crear (saving no se queda atascado)
+AssertionError: expected 'React · Hooks' to be 'Bueno' // Object.is equality
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div />[39m
+  [36m</body>[39m
+[36m</html>[39m
+
+Expected: "Bueno"
+Received: "React · Hooks"
+
+ ❯ src/test/useExams.test.jsx:212:68
+    210|     });
+    211|     await release(network);
+    212|     await waitFor(() => expect(result.current.exams.at(-1)?.title).toB…
+       |                                                                    ^
+    213|     expect(result.current.actionError).toBeNull();
+    214|   });
+ ❯ runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ ❯ checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ ❯ Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed | 11 passed (18)
+   Start at  19:54:26
+   Duration  5.38s (transform 89ms, setup 153ms, collect 224ms, tests 1.41s, environment 509ms, prepare 229ms)
+
